@@ -17,7 +17,7 @@ namespace ECommerceApp.Menu
             {
                 System.Console.WriteLine("1. Visa alla produkter");
                 System.Console.WriteLine("2. Visa leverantörer med enheter på lager färre än 10");
-                System.Console.WriteLine("3. Update a product");
+                System.Console.WriteLine("3. Visa Pris för alla ordrar under 1 månad");
                 System.Console.WriteLine("4. Delete a product");
                 System.Console.WriteLine("5. Exit");
                 System.Console.Write("Enter your choice: ");
@@ -33,6 +33,7 @@ namespace ECommerceApp.Menu
                         ReturnToMenu();
                         break;
                     case "3":
+                        _productDataAccess.CalculateAllOrderValue();
                         ReturnToMenu();
                         break;
                     case "4":
