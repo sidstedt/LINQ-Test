@@ -21,13 +21,13 @@ namespace ECommerceApp.DataAccess
                 .SelectMany(p => p.Products)
                 .OrderByDescending(p => p.Price);
             Console.WriteLine("--------------------------------------");
-            foreach(var product in products)
+            foreach (var product in products)
             {
                 Console.WriteLine($"Namn: {product.Name}\nPris: {product.Price}:-");
                 Console.WriteLine("--------------------------------------");
             }
         }
-        
+
         public void ListSuppliersWithLowStock()
         {
             var suppliers = _context.Suppliers
@@ -75,11 +75,36 @@ namespace ECommerceApp.DataAccess
             }
         }
 
+        public void ListProductsInCategory()
+        {
+            var query = _context.Categories
+                .GroupJoin(
+                _context.Products,
+                c => c.Id,
+                p => p.CategoryId,
+                (c, p) => new
+                {
+                    CategoryName = c.Name,
+                    Products = p
+                        .Select(p => p.Name)
+                })
+                .OrderBy(c => c.CategoryName);
+
+            foreach (var category in query)
+            {
+                Console.WriteLine($"----{category.CategoryName}----");
+                foreach (var product in category.Products)
+                {
+                    Console.WriteLine($"Namn: {product}");
+                }
+            }
+        }
+
         //- [X] Hämta alla produkter i kategorin "Electronics" och sortera dem efter pris(högst först)
         //- [X] Lista alla leverantörer som har produkter med ett lagersaldo under 10 enheter
         //- [X] Beräkna det totala ordervärdet för alla ordrar gjorda under den senaste månaden
-        //- [ ] Hitta de 3 mest sålda produkterna baserat på OrderDetail-data
-        //- [ ] Lista alla kategorier och antalet produkter i varje kategori
+        //- [X] Hitta de 3 mest sålda produkterna baserat på OrderDetail-data
+        //- [X] Lista alla kategorier och antalet produkter i varje kategori
         //- [ ] Hämta alla ordrar med tillhörande kunduppgifter och orderdetaljer där totalbeloppet överstiger 1000 kr
     }
 }

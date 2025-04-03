@@ -15,13 +15,15 @@ namespace ECommerceApp.Menu
         {
             while (true)
             {
-                System.Console.WriteLine("1. Visa alla produkter");
-                System.Console.WriteLine("2. Visa leverantörer med enheter på lager färre än 10");
-                System.Console.WriteLine("3. Visa Pris för alla ordrar under 1 månad");
-                System.Console.WriteLine("4. Delete a product");
-                System.Console.WriteLine("5. Exit");
-                System.Console.Write("Enter your choice: ");
-                var choice = System.Console.ReadLine();
+                Console.WriteLine("1. Visa alla produkter");
+                Console.WriteLine("2. Visa leverantörer med enheter på lager färre än 10");
+                Console.WriteLine("3. Visa Pris för alla ordrar under 1 månad");
+                Console.WriteLine("4. Visa dom tre mest sålda produkerna och antal");
+                Console.WriteLine("5. Visa produkter baserat på dess kategori");
+                Console.WriteLine("6. Visa alla ordrar med ett pelopp större än 1000");
+                Console.WriteLine("7. Exit");
+                Console.Write("Enter your choice: ");
+                var choice = Console.ReadLine();
                 switch (choice)
                 {
                     case "1":
@@ -41,10 +43,16 @@ namespace ECommerceApp.Menu
                         ReturnToMenu();
                         break;
                     case "5":
+                        _productDataAccess.ListProductsInCategory();
+                        ReturnToMenu();
+                        break;
+                    case "6":
+                        break;
+                    case "7":
                         System.Environment.Exit(0);
                         break;
                     default:
-                        System.Console.WriteLine("\nFelaktigt val. Försök igen");
+                        Console.WriteLine("\nFelaktigt val. Försök igen");
                         ReturnToMenu();
                         break;
                 }
@@ -54,8 +62,8 @@ namespace ECommerceApp.Menu
         public void ReturnToMenu()
         {
             Console.WriteLine();
-            System.Console.WriteLine("Press any key to return to the menu...");
-            System.Console.ReadKey();
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
             Console.Clear();
             DisplayMenu();
         }
