@@ -2,6 +2,7 @@
 using static System.Net.WebRequestMethods;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace ECommerceApp.DataAccess
 {
@@ -47,6 +48,31 @@ namespace ECommerceApp.DataAccess
                 .Sum(o => o.TotalAmount);
 
             Console.WriteLine($"Totala ordervärdet för den senaste månaden är: {totalOrderValue}");
+        }
+
+        public void ThreeMostSoldProducts()
+        {
+
+            var products = _context.OrderDetails
+                .GroupBy(o => o.ProductId)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    TotalQuantity = g.Sum(o => o.Quantity)
+                })
+            .OrderByDescending(p => p.TotalQuantity)
+            .Take(3)
+            .Join(_context.Products, od => od.ProductId, p => p.Id, (od, p) => new
+            {
+                p.Name,
+                od.TotalQuantity
+            });
+
+            foreach (var product in products)
+            {
+                Console.WriteLine($"\nNamn: {product.Name}\nSålda enheter:{product.TotalQuantity}");
+                Console.WriteLine("--------------------------------------");
+            }
         }
 
         //- [X] Hämta alla produkter i kategorin "Electronics" och sortera dem efter pris(högst först)

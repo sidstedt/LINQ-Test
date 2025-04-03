@@ -37,6 +37,7 @@ namespace ECommerceApp.Menu
                         ReturnToMenu();
                         break;
                     case "4":
+                        _productDataAccess.ThreeMostSoldProducts();
                         ReturnToMenu();
                         break;
                     case "5":
