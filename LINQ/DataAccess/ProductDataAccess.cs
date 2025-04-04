@@ -100,6 +100,18 @@ namespace ECommerceApp.DataAccess
             }
         }
 
+        public void GetAllOrders()
+        {
+            var query = _context.Orders
+                .Where(o => o.TotalAmount > 1000)
+                .Join(_context.Customers, order => order.CustomerId, c => c.Id, (order, c) => new { order, c })
+                .Join(_context.OrderDetails, oorder => oorder.order.Id, od => od.OrderId, (oorder, od) => new
+                {
+
+                });
+
+        }
+
         //- [X] Hämta alla produkter i kategorin "Electronics" och sortera dem efter pris(högst först)
         //- [X] Lista alla leverantörer som har produkter med ett lagersaldo under 10 enheter
         //- [X] Beräkna det totala ordervärdet för alla ordrar gjorda under den senaste månaden
