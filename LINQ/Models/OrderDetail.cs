@@ -9,8 +9,7 @@
         public int UnitPrice { get; set; }
 
         // Navigation Properties
-        public Order Order { get; set; }
-        public Product Product { get; set; }
-
+        public Order? Order { get; set; }
+        public Product? Product { get; set; }
     }
 }

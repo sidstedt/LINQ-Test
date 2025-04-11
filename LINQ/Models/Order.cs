@@ -9,9 +9,9 @@
         public int TotalAmount { get; set; }
         public bool Status { get; set; }
 
-        public Customer Customer { get; set; }
-
-        public ICollection<Product> Products { get; set; } = new List<Product>();
+        // Navigation Properties
+        public Customer? Customer { get; set; } = null;
+        public ICollection<OrderDetail> OrderDetails { get; set; } = new List<OrderDetail>();
 
     }
 }

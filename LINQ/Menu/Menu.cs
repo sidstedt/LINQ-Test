@@ -15,7 +15,7 @@ namespace ECommerceApp.Menu
         {
             while (true)
             {
-                Console.WriteLine("1. Visa alla produkter");
+                Console.WriteLine("1. Visa alla produkter i Electronics");
                 Console.WriteLine("2. Visa leverantörer med enheter på lager färre än 10");
                 Console.WriteLine("3. Visa Pris för alla ordrar under 1 månad");
                 Console.WriteLine("4. Visa dom tre mest sålda produkerna och antal");
@@ -47,6 +47,8 @@ namespace ECommerceApp.Menu
                         ReturnToMenu();
                         break;
                     case "6":
+                        _productDataAccess.GetAllOrders();
+                        ReturnToMenu();
                         break;
                     case "7":
                         System.Environment.Exit(0);
